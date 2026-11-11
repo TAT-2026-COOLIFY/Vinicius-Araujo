@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR"
+      xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: layout(~{::section})}">
+
+<head>
+
+    <title>Relatório de Estoque</title>
+
+</head>
+
+<body>
+
+<section>
+
+
+    <!-- =====================================================
+         CABEÇALHO
+    ====================================================== -->
+
+    <div class="dashboard-header">
+
+        <div>
+
+            <h1 class="dashboard-title">
+                Relatório de Estoque
+            </h1>
+
+            <p class="dashboard-subtitle">
+                Consulte a situação atual dos produtos em estoque.
+            </p>
+
+        </div>
+
+
+        <!-- BOTÃO VOLTAR -->
+
+        <a th:href="@{/}"
+           class="page-button">
+
+            <span>
+                Voltar
+            </span>
+
+        </a>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         AÇÕES DOS RELATÓRIOS
+    ====================================================== -->
+
+    <div class="dashboard-box mb-4">
+
+        <div class="products-box-header">
+
+            <div class="products-heading">
+
+                <h2>
+                    Relatórios
+                </h2>
+
+                <span>
+                    Consulte outras informações do estoque.
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="box-content">
+
+            <div class="relatorios-acoes">
+
+
+                <!-- =================================================
+                     ESTOQUE BAIXO
+                ================================================== -->
+
+                <a th:href="@{/relatorios/estoque-baixo}"
+                   class="relatorio-acao relatorio-acao-alerta">
+
+
+                    <span class="relatorio-acao-icone">
+
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                             viewBox="0 0 24 24"
+                             fill="none"
+                             stroke="currentColor"
+                             stroke-width="2"
+                             stroke-linecap="round"
+                             stroke-linejoin="round">
+
+                            <path d="M10.3 3.5 2.4 17a2 2 0 0 0 1.7 3h15.8a2 2 0 0 0 1.7-3L13.7 3.5a2 2 0 0 0-3.4 0Z"/>
+
+                            <path d="M12 9v4"/>
+
+                            <path d="M12 17h.01"/>
+
+                        </svg>
+
+                    </span>
+
+
+                    <span class="relatorio-acao-texto">
+
+                        <strong>
+                            Estoque Baixo
+                        </strong>
+
+                        <small>
+                            Produtos abaixo do estoque mínimo
+                        </small>
+
+                    </span>
+
+
+                    <!-- SETA -->
+
+                    <span class="relatorio-acao-seta">
+
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                             viewBox="0 0 24 24"
+                             fill="none"
+                             stroke="currentColor"
+                             stroke-width="2"
+                             stroke-linecap="round"
+                             stroke-linejoin="round">
+
+                            <path d="M5 12h14"/>
+
+                            <path d="M13 6l6 6-6 6"/>
+
+                        </svg>
+
+                    </span>
+
+
+                </a>
+
+
+
+                <!-- =================================================
+                     ENTRADAS E SAÍDAS
+                ================================================== -->
+
+                <a th:href="@{/relatorios/movimentacoes}"
+                   class="relatorio-acao relatorio-acao-movimentacoes">
+
+
+                    <span class="relatorio-acao-icone">
+
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                             viewBox="0 0 24 24"
+                             fill="none"
+                             stroke="currentColor"
+                             stroke-width="2"
+                             stroke-linecap="round"
+                             stroke-linejoin="round">
+
+                            <path d="M7 7h11l-3-3"/>
+
+                            <path d="M18 7l-3 3"/>
+
+                            <path d="M17 17H6l3 3"/>
+
+                            <path d="M6 17l3-3"/>
+
+                        </svg>
+
+                    </span>
+
+
+                    <span class="relatorio-acao-texto">
+
+                        <strong>
+                            Entradas e Saídas
+                        </strong>
+
+                        <small>
+                            Histórico de movimentações
+                        </small>
+
+                    </span>
+
+
+                    <!-- SETA -->
+
+                    <span class="relatorio-acao-seta">
+
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                             viewBox="0 0 24 24"
+                             fill="none"
+                             stroke="currentColor"
+                             stroke-width="2"
+                             stroke-linecap="round"
+                             stroke-linejoin="round">
+
+                            <path d="M5 12h14"/>
+
+                            <path d="M13 6l6 6-6 6"/>
+
+                        </svg>
+
+                    </span>
+
+
+                </a>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         ESTOQUE ATUAL
+    ====================================================== -->
+
+    <div class="dashboard-box movements-box">
+
+
+        <div class="products-box-header">
+
+            <div class="products-heading">
+
+                <h2>
+                    Estoque Atual
+                </h2>
+
+                <span>
+                    Situação atual dos produtos cadastrados.
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="table-container">
+
+            <table class="modern-table">
+
+
+                <!-- =================================================
+                     CABEÇALHO
+                ================================================== -->
+
+                <thead>
+
+                <tr>
+
+                    <th class="column-id">
+                        ID
+                    </th>
+
+                    <th>
+                        Produto
+                    </th>
+
+                    <th>
+                        Categoria
+                    </th>
+
+                    <th>
+                        Quantidade Atual
+                    </th>
+
+                    <th>
+                        Estoque Mínimo
+                    </th>
+
+                    <th>
+                        Estoque Máximo
+                    </th>
+
+                    <th>
+                        Unidade
+                    </th>
+
+                </tr>
+
+                </thead>
+
+
+
+                <!-- =================================================
+                     CORPO
+                ================================================== -->
+
+                <tbody>
+
+
+                <!-- PRODUTOS -->
+
+                <tr th:each="produto : ${produtos}">
+
+
+                    <!-- ID -->
+
+                    <td class="product-id"
+                        th:text="${produto.id}">
+
+                        1
+
+                    </td>
+
+
+
+                    <!-- PRODUTO -->
+
+                    <td class="product-cell">
+
+                        <span class="product-name"
+                              th:text="${produto.nome}">
+
+                            Produto
+
+                        </span>
+
+                    </td>
+
+
+
+                    <!-- CATEGORIA -->
+
+                    <td th:text="${produto.categoria.nome}">
+
+                        Categoria
+
+                    </td>
+
+
+
+                    <!-- QUANTIDADE ATUAL -->
+
+                    <td th:text="${produto.quantidadeAtual}">
+
+                        0
+
+                    </td>
+
+
+
+                    <!-- ESTOQUE MÍNIMO -->
+
+                    <td th:text="${produto.estoqueMinimo}">
+
+                        0
+
+                    </td>
+
+
+
+                    <!-- ESTOQUE MÁXIMO -->
+
+                    <td th:text="${produto.estoqueMaximo}">
+
+                        0
+
+                    </td>
+
+
+
+                    <!-- UNIDADE -->
+
+                    <td th:text="${produto.tipoUnidade}">
+
+                        Unidade
+
+                    </td>
+
+
+                </tr>
+
+
+
+                <!-- =================================================
+                     NENHUM PRODUTO
+                ================================================== -->
+
+                <tr th:if="${#lists.isEmpty(produtos)}">
+
+                    <td colspan="7"
+                        class="empty-table">
+
+
+                        <div class="empty-products">
+
+
+                            <div class="empty-products-icon">
+
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                     viewBox="0 0 24 24"
+                                     fill="none"
+                                     stroke="currentColor"
+                                     stroke-width="2"
+                                     stroke-linecap="round"
+                                     stroke-linejoin="round">
+
+                                    <path d="M20 7h-9"/>
+
+                                    <path d="M14 17H5"/>
+
+                                    <path d="M18 12H6"/>
+
+                                </svg>
+
+                            </div>
+
+
+                            <strong>
+                                Nenhum produto cadastrado
+                            </strong>
+
+
+                            <span>
+                                Cadastre um produto para começar.
+                            </span>
+
+
+                        </div>
+
+
+                    </td>
+
+                </tr>
+
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+    </div>
+
+
+</section>
+
+</body>
+
+</html>

@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1">
+
+  <title>Cadastro de Produto</title>
+
+</head>
+
+
+<body>
+
+<div th:replace="~{fragments/layout :: layout(~{::content})}">
+
+  <div th:fragment="content">
+
+
+    <!-- CABEÇALHO -->
+
+    <div class="dashboard-header">
+
+      <div>
+
+        <h1 class="dashboard-title">
+          Cadastro de Produto
+        </h1>
+
+        <p class="dashboard-subtitle">
+          Cadastre um novo produto ou edite um produto existente.
+        </p>
+
+      </div>
+
+
+      <a th:href="@{/produtos}"
+         class="page-button">
+
+        Voltar
+
+      </a>
+
+    </div>
+
+
+
+    <!-- FORMULÁRIO -->
+
+    <div class="dashboard-box">
+
+      <div class="box-header">
+
+        <div>
+
+          <h2>
+            Dados do Produto
+          </h2>
+
+          <span>
+            Preencha as informações do produto
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <div class="box-content">
+
+
+        <form th:action="@{/produtos/salvar}"
+              th:object="${produto}"
+              method="post">
+
+
+          <input type="hidden"
+                 th:field="*{id}">
+
+
+
+          <!-- NOME -->
+
+          <div class="form-group">
+
+            <label>
+              Nome
+            </label>
+
+            <input type="text"
+                   th:field="*{nome}"
+                   required>
+
+          </div>
+
+
+
+          <!-- CATEGORIA -->
+
+          <div class="form-group">
+
+            <label>
+              Categoria
+            </label>
+
+            <select th:field="*{categoria}"
+                    required>
+
+              <option value="">
+                Selecione uma categoria
+              </option>
+
+              <option th:each="categoria : ${categorias}"
+                      th:value="${categoria.id}"
+                      th:text="${categoria.nome}">
+              </option>
+
+            </select>
+
+          </div>
+
+
+
+          <!-- DESCRIÇÃO -->
+
+          <div class="form-group">
+
+            <label>
+              Descrição
+            </label>
+
+            <textarea th:field="*{descricao}"
+                      rows="4"></textarea>
+
+          </div>
+
+
+
+          <!-- ESTOQUE -->
+
+          <div class="form-row form-row-three">
+
+            <div class="form-group">
+
+              <label>
+                Quantidade Atual
+              </label>
+
+              <input type="number"
+                     th:field="*{quantidadeAtual}">
+
+            </div>
+
+
+            <div class="form-group">
+
+              <label>
+                Estoque Mínimo
+              </label>
+
+              <input type="number"
+                     th:field="*{estoqueMinimo}">
+
+            </div>
+
+
+            <div class="form-group">
+
+              <label>
+                Estoque Máximo
+              </label>
+
+              <input type="number"
+                     th:field="*{estoqueMaximo}">
+
+            </div>
+
+          </div>
+
+
+
+          <!-- UNIDADE -->
+
+          <div class="form-group">
+
+            <label>
+              Tipo de Unidade
+            </label>
+
+            <input type="text"
+                   placeholder="Ex.: UN, KG, L"
+                   th:field="*{tipoUnidade}">
+
+          </div>
+
+
+
+          <!-- BOTÕES -->
+
+          <div class="form-actions">
+
+            <a th:href="@{/produtos}"
+               class="cancel-button">
+
+              Cancelar
+
+            </a>
+
+
+            <button type="submit"
+                    class="save-button">
+
+              Salvar Produto
+
+            </button>
+
+          </div>
+
+
+        </form>
+
+      </div>
+
+    </div>
+
+
+  </div>
+
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      th:fragment="layout(content)">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Controle de Estoque</title>
+
+
+    <!-- =====================================================
+         FONTE
+    ===================================================== -->
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+          rel="stylesheet">
+
+
+    <!-- =====================================================
+         CSS
+    ===================================================== -->
+
+    <link rel="stylesheet"
+          th:href="@{/style.css}">
+
+</head>
+
+
+<body>
+
+
+<div class="app-layout">
+
+
+    <!-- =====================================================
+         NAVBAR
+    ===================================================== -->
+
+    <aside class="sidebar">
+
+
+        <div class="sidebar-brand">
+
+            <div class="brand-text">
+
+                <div class="brand-title">
+                    Controle de Estoque
+                </div>
+
+                <div class="brand-subtitle">
+                    SISTEMA DE GESTÃO
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             MENU
+        ================================================== -->
+
+        <nav class="sidebar-menu"
+             id="sidebarMenu">
+
+
+            <!-- =================================================
+                 DASHBOARD
+            ================================================== -->
+
+            <a th:href="@{/}"
+               class="sidebar-link">
+
+                <span class="sidebar-icon">
+
+                    <svg viewBox="0 0 24 24"
+                         fill="none"
+                         stroke="currentColor"
+                         stroke-width="1.8"
+                         stroke-linecap="round"
+                         stroke-linejoin="round">
+
+                        <rect x="3"
+                              y="3"
+                              width="7"
+                              height="7"
+                              rx="1"/>
+
+                        <rect x="14"
+                              y="3"
+                              width="7"
+                              height="7"
+                              rx="1"/>
+
+                        <rect x="3"
+                              y="14"
+                              width="7"
+                              height="7"
+                              rx="1"/>
+
+                        <rect x="14"
+                              y="14"
+                              width="7"
+                              height="7"
+                              rx="1"/>
+
+                    </svg>
+
+                </span>
+
+                <span>
+                    Dashboard
+                </span>
+
+            </a>
+
+
+
+            <!-- =================================================
+                 PRODUTOS
+            ================================================== -->
+
+            <a th:href="@{/produtos}"
+               class="sidebar-link">
+
+                <span class="sidebar-icon">
+
+                    <svg viewBox="0 0 24 24"
+                         fill="none"
+                         stroke="currentColor"
+                         stroke-width="1.8"
+                         stroke-linecap="round"
+                         stroke-linejoin="round">
+
+                        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/>
+
+                        <path d="m3.3 7 8.7 5 8.7-5"/>
+
+                        <path d="M12 22V12"/>
+
+                    </svg>
+
+                </span>
+
+                <span>
+                    Produtos
+                </span>
+
+            </a>
+
+
+
+            <!-- =================================================
+                 CATEGORIAS
+            ================================================== -->
+
+            <a th:href="@{/categorias}"
+               class="sidebar-link">
+
+                <span class="sidebar-icon">
+
+                    <svg viewBox="0 0 24 24"
+                         fill="none"
+                         stroke="currentColor"
+                         stroke-width="1.8"
+                         stroke-linecap="round"
+                         stroke-linejoin="round">
+
+                        <path d="M20.59 13.41 13.41 20.59a2 2 0 0 1-2.82 0L3.41 13.41a2 2 0 0 1 0-2.82L10.59 3.41A2 2 0 0 1 12 3h7a2 2 0 0 1 2 2v7a2 2 0 0 1-.41 1.41Z"/>
+
+                        <circle cx="16.5"
+                                cy="7.5"
+                                r="1"/>
+
+                    </svg>
+
+                </span>
+
+                <span>
+                    Categorias
+                </span>
+
+            </a>
+
+
+
+            <!-- =================================================
+                 USUÁRIOS
+            ================================================== -->
+
+            <a th:href="@{/usuarios}"
+               class="sidebar-link"
+                sec:authorize="hasRole('ADMINISTRADOR')">
+
+                <span class="sidebar-icon">
+
+                    <svg viewBox="0 0 24 24"
+                         fill="none"
+                         stroke="currentColor"
+                         stroke-width="1.8"
+                         stroke-linecap="round"
+                         stroke-linejoin="round">
+
+                        <circle cx="9"
+                                cy="7"
+                                r="4"/>
+
+                        <path d="M3 21v-2a6 6 0 0 1 12 0v2"/>
+
+                        <path d="M16 3.5a4 4 0 0 1 0 7.5"/>
+
+                        <path d="M21 21v-2a6 6 0 0 0-4-5.65"/>
+
+                    </svg>
+
+                </span>
+
+                <span>
+                    Usuários
+                </span>
+
+            </a>
+
+
+
+            <!-- =================================================
+                 MOVIMENTAÇÕES
+            ================================================== -->
+
+            <a th:href="@{/movimentacoes}"
+               class="sidebar-link">
+
+                <span class="sidebar-icon">
+
+                    <svg viewBox="0 0 24 24"
+                         fill="none"
+                         stroke="currentColor"
+                         stroke-width="1.8"
+                         stroke-linecap="round"
+                         stroke-linejoin="round">
+
+                        <path d="M17 3l4 4-4 4"/>
+
+                        <path d="M3 7h18"/>
+
+                        <path d="M7 21l-4-4 4-4"/>
+
+                        <path d="M21 17H3"/>
+
+                    </svg>
+
+                </span>
+
+                <span>
+                    Movimentações
+                </span>
+
+            </a>
+
+
+            <!-- =================================================
+                 RELATÓRIOS
+            ================================================== -->
+
+            <a th:href="@{/relatorios}"
+               class="sidebar-link">
+
+                <span class="sidebar-icon">
+
+                    <svg viewBox="0 0 24 24"
+                         fill="none"
+                         stroke="currentColor"
+                         stroke-width="1.8"
+                         stroke-linecap="round"
+                         stroke-linejoin="round">
+
+                        <path d="M4 19V5"/>
+
+                        <path d="M4 5h16v14H4Z"/>
+
+                        <path d="M8 9h8"/>
+
+                        <path d="M8 13h8"/>
+
+                        <path d="M8 17h5"/>
+
+                    </svg>
+
+                </span>
+
+                <span>
+                    Relatórios
+                </span>
+
+            </a>
+
+
+        </nav>
+
+
+
+        <!-- =================================================
+             USUÁRIO
+        ================================================== -->
+
+        <div class="navbar-user">
+
+
+            <div class="user-area">
+
+
+                <button type="button"
+                        class="user-button"
+                        id="userButton">
+
+
+                    <!-- AVATAR -->
+
+                    <div class="user-avatar"
+                         id="userAvatar">
+
+                        V
+
+                    </div>
+
+
+                    <!-- INFORMAÇÕES -->
+
+                    <div class="user-info">
+
+                        <span class="user-name"
+                              id="userName"
+                              sec:authentication="name">
+
+                            usuário
+
+                        </span>
+
+
+                        <span class="user-role">
+
+                            Usuário do sistema
+
+                        </span>
+
+                    </div>
+
+
+                    <!-- SETA -->
+
+                    <span class="user-arrow">
+
+                        ▾
+
+                    </span>
+
+
+                </button>
+
+
+
+                <!-- =========================================
+                     DROPDOWN DO USUÁRIO
+                ========================================== -->
+
+                <div class="user-dropdown"
+                     id="userDropdown">
+
+
+                    <form th:action="@{/logout}"
+                          method="post">
+
+
+                        <button type="submit"
+                                class="dropdown-logout">
+
+
+                            <span class="dropdown-icon">
+                                ↪
+                            </span>
+
+
+                            <span>
+                                Sair
+                            </span>
+
+
+                        </button>
+
+
+                    </form>
+
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+    </aside>
+
+
+
+    <!-- =====================================================
+         CONTEÚDO PRINCIPAL
+    ===================================================== -->
+
+    <main class="main-content">
+
+
+        <!-- =================================================
+             CONTEÚDO DA PÁGINA
+        ================================================== -->
+
+        <div class="page-content">
+
+            <div th:replace="${content}"></div>
+
+        </div>
+
+
+    </main>
+
+
+</div>
+
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script>
+
+    document.addEventListener("DOMContentLoaded", function () {
+
+
+        /* =================================================
+           DROPDOWN DO USUÁRIO
+        ================================================= */
+
+        const userButton =
+            document.getElementById("userButton");
+
+
+        const userDropdown =
+            document.getElementById("userDropdown");
+
+
+        if (userButton && userDropdown) {
+
+
+            userButton.addEventListener(
+                "click",
+                function (event) {
+
+                    event.stopPropagation();
+
+                    userDropdown.classList.toggle("show");
+
+                    userButton.classList.toggle("active");
+
+                }
+            );
+
+
+            document.addEventListener(
+                "click",
+                function (event) {
+
+                    if (
+                        !userDropdown.contains(event.target)
+                        &&
+                        !userButton.contains(event.target)
+                    ) {
+
+                        userDropdown.classList.remove("show");
+
+                        userButton.classList.remove("active");
+
+                    }
+
+                }
+            );
+
+        }
+
+
+
+        /* =================================================
+           AVATAR COM INICIAL DO USUÁRIO
+        ================================================= */
+
+        const userNameEl =
+            document.getElementById("userName");
+
+
+        const userAvatarEl =
+            document.getElementById("userAvatar");
+
+
+        if (userNameEl && userAvatarEl) {
+
+
+            const rawName =
+                userNameEl.textContent.trim();
+
+
+            if (rawName.length > 0) {
+
+
+                const initial =
+                    rawName.charAt(0).toUpperCase();
+
+
+                userAvatarEl.textContent =
+                    initial;
+
+            }
+
+        }
+
+
+
+        /* =================================================
+           DESTACAR LINK ATIVO
+        ================================================= */
+
+        const currentPath =
+            window.location.pathname;
+
+
+        document
+            .querySelectorAll("#sidebarMenu .sidebar-link")
+            .forEach(function (link) {
+
+
+                const linkPath =
+                    new URL(link.href).pathname;
+
+
+                const isRoot =
+                    linkPath === "/" &&
+                    currentPath === "/";
+
+
+                const matchesPath =
+                    linkPath !== "/" &&
+                    currentPath.startsWith(linkPath);
+
+
+                if (isRoot || matchesPath) {
+
+                    link.classList.add("active");
+
+                }
+
+            });
+
+
+    });
+
+</script>
+
+
+</body>
+
+</html>

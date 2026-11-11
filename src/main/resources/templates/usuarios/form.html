@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      th:replace="~{fragments/layout :: layout(~{::section})}">
+
+<head>
+
+  <title>Cadastro de Usuário</title>
+
+</head>
+
+<body>
+
+<section>
+
+
+  <!-- CABEÇALHO -->
+
+  <div class="dashboard-header">
+
+    <div>
+
+      <h1 class="dashboard-title">
+        Cadastro de Usuário
+      </h1>
+
+      <p class="dashboard-subtitle">
+        Cadastre um novo usuário ou edite um usuário existente.
+      </p>
+
+    </div>
+
+
+    <a th:href="@{/usuarios}"
+       class="page-button">
+
+      Voltar
+
+    </a>
+
+  </div>
+
+
+
+  <!-- FORMULÁRIO -->
+
+  <div class="dashboard-box">
+
+    <div class="box-header">
+
+      <div>
+
+        <h2>
+          Dados do Usuário
+        </h2>
+
+        <span>
+                    Preencha as informações do usuário
+                </span>
+
+      </div>
+
+    </div>
+
+
+    <div class="box-content">
+
+
+      <!-- ERRO -->
+
+      <div th:if="${erro}"
+           class="form-alert">
+
+        <span th:text="${erro}">
+          Erro ao salvar usuário.
+        </span>
+
+
+      </div>
+
+
+      <form th:action="@{/usuarios/salvar}"
+            th:object="${usuarioForm}"
+            method="post">
+
+
+        <!-- ID -->
+
+        <input type="hidden"
+               th:field="*{id}">
+
+
+        <!-- NOME -->
+
+        <div class="form-group">
+
+          <label>
+            Nome
+          </label>
+
+          <input type="text"
+                 th:field="*{nome}"
+                 placeholder="Digite o nome do usuário"
+                 required>
+
+        </div>
+
+
+        <!-- USUÁRIO -->
+
+        <div class="form-group">
+
+          <label>
+            Usuário
+          </label>
+
+          <input type="text"
+                 th:field="*{usuario}"
+                 placeholder="Digite o nome de usuário"
+                 required>
+
+        </div>
+
+
+        <!-- SENHA -->
+
+        <div class="form-group">
+
+          <label>
+            Senha
+          </label>
+
+          <input type="password"
+                 th:field="*{senha}"
+                 placeholder="Digite a senha"
+                 required>
+
+        </div>
+
+
+        <!-- CARGO -->
+
+        <div class="form-group">
+
+          <label>
+            Cargo
+          </label>
+
+          <select th:field="*{cargo}">
+
+            <option value="ADMINISTRADOR">
+              Administrador
+            </option>
+
+            <option value="USUARIO">
+              Usuário
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <!-- ATIVO -->
+
+        <div class="form-check-custom">
+
+          <input type="checkbox"
+                 id="ativo"
+                 th:field="*{ativo}">
+
+          <label for="ativo">
+            Usuário ativo
+          </label>
+
+        </div>
+
+
+        <!-- BOTÕES -->
+
+        <div class="form-actions">
+
+          <a th:href="@{/usuarios}"
+             class="cancel-button">
+
+            Cancelar
+
+          </a>
+
+
+          <button type="submit"
+                  class="save-button">
+
+            Salvar Usuário
+
+          </button>
+
+        </div>
+
+
+      </form>
+
+    </div>
+
+  </div>
+
+
+</section>
+
+</body>
+
+</html>

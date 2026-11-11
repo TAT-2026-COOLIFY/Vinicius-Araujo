@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR"
+      xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: layout(~{::section})}">
+
+<head>
+
+    <title>Movimentações</title>
+
+</head>
+
+<body>
+
+<section>
+
+
+    <!-- =====================================================
+         CABEÇALHO
+    ====================================================== -->
+
+    <div class="dashboard-header">
+
+        <div>
+
+            <h1 class="dashboard-title">
+                Movimentações
+            </h1>
+
+            <p class="dashboard-subtitle">
+                Controle as entradas e saídas realizadas no estoque.
+            </p>
+
+        </div>
+
+
+        <a th:href="@{/movimentacoes/nova}"
+           class="page-button">
+
+            <!-- ÍCONE + -->
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 viewBox="0 0 24 24"
+                 fill="none"
+                 stroke="currentColor"
+                 stroke-width="2"
+                 stroke-linecap="round"
+                 stroke-linejoin="round"
+                 width="18"
+                 height="18">
+
+                <path d="M12 5v14"/>
+
+                <path d="M5 12h14"/>
+
+            </svg>
+
+            <span>Nova Movimentação</span>
+
+        </a>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         LISTA DE MOVIMENTAÇÕES
+    ====================================================== -->
+
+    <div class="dashboard-box products-list-box">
+
+
+        <!-- CABEÇALHO DO CARD -->
+
+        <div class="products-box-header">
+
+            <div class="products-heading">
+
+                <h2>
+                    Movimentações registradas
+                </h2>
+
+                <span>
+                    Histórico de entradas e saídas do estoque
+                </span>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             TABELA
+        ================================================== -->
+
+        <div class="table-container">
+
+            <table class="modern-table">
+
+
+                <!-- CABEÇALHO -->
+
+                <thead>
+
+                <tr>
+
+                    <th>
+                        Data
+                    </th>
+
+                    <th>
+                        Produto
+                    </th>
+
+                    <th>
+                        Usuário
+                    </th>
+
+                    <th>
+                        Tipo
+                    </th>
+
+                    <th>
+                        Quantidade
+                    </th>
+
+                </tr>
+
+                </thead>
+
+
+
+                <!-- =================================================
+                     CORPO
+                ================================================== -->
+
+                <tbody>
+
+
+                <!-- MOVIMENTAÇÕES -->
+
+                <tr th:each="mov : ${movimentacoes}">
+
+
+                    <!-- DATA -->
+
+                    <td
+                            th:text="${#temporals.format(
+                            mov.dataMovimentacao,
+                            'dd/MM/yyyy HH:mm'
+                        )}">
+                    </td>
+
+
+
+                    <!-- PRODUTO -->
+
+                    <td class="product-cell">
+
+                        <span class="product-name"
+                              th:text="${mov.produto.nome}">
+
+                            Produto
+
+                        </span>
+
+                    </td>
+
+
+
+                    <!-- USUÁRIO -->
+
+                    <td
+                            th:text="${mov.usuario.nome}">
+
+                        Usuário
+
+                    </td>
+
+
+
+                    <!-- TIPO -->
+
+                    <td>
+
+
+                        <!-- ENTRADA -->
+
+                        <span
+                                th:if="${mov.tipoMovimentacao.name() == 'ENTRADA'}"
+                                class="movement-badge movement-entry">
+
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                 viewBox="0 0 24 24"
+                                 fill="none"
+                                 stroke="currentColor"
+                                 stroke-width="2"
+                                 stroke-linecap="round"
+                                 stroke-linejoin="round">
+
+                                <path d="M12 19V5"/>
+
+                                <path d="M5 12l7-7 7 7"/>
+
+                            </svg>
+
+                            Entrada
+
+                        </span>
+
+
+
+                        <!-- SAÍDA -->
+
+                        <span
+                                th:if="${mov.tipoMovimentacao.name() == 'SAIDA'}"
+                                class="movement-badge movement-exit">
+
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                 viewBox="0 0 24 24"
+                                 fill="none"
+                                 stroke="currentColor"
+                                 stroke-width="2"
+                                 stroke-linecap="round"
+                                 stroke-linejoin="round">
+
+                                <path d="M12 5v14"/>
+
+                                <path d="M19 12l-7 7-7-7"/>
+
+                            </svg>
+
+                            Saída
+
+                        </span>
+
+
+                    </td>
+
+
+
+                    <!-- QUANTIDADE -->
+
+                    <td
+                            th:text="${mov.quantidade}">
+
+                        0
+
+                    </td>
+
+
+                </tr>
+
+
+
+                <!-- =================================================
+                     NENHUMA MOVIMENTAÇÃO
+                ================================================== -->
+
+                <tr th:if="${#lists.isEmpty(movimentacoes)}">
+
+                    <td colspan="5"
+                        class="empty-table">
+
+                        <div class="empty-products">
+
+                            <div class="empty-products-icon">
+
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                     viewBox="0 0 24 24"
+                                     fill="none"
+                                     stroke="currentColor"
+                                     stroke-width="2"
+                                     stroke-linecap="round"
+                                     stroke-linejoin="round">
+
+                                    <path d="M12 6v6l4 2"/>
+
+                                    <circle cx="12"
+                                            cy="12"
+                                            r="9"/>
+
+                                </svg>
+
+                            </div>
+
+
+                            <strong>
+                                Nenhuma movimentação cadastrada
+                            </strong>
+
+
+                            <span>
+                                Registre uma entrada ou saída para começar.
+                            </span>
+
+                        </div>
+
+                    </td>
+
+                </tr>
+
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+    </div>
+
+
+</section>
+
+</body>
+
+</html>

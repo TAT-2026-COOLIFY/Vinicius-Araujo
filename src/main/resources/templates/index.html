@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR"
+      xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: layout(~{::section})}">
+
+<head>
+
+    <title>Dashboard</title>
+
+</head>
+
+<body>
+
+<section>
+
+
+    <!-- =====================================================
+         CABEÇALHO
+    ====================================================== -->
+
+    <div class="dashboard-header">
+
+        <div>
+
+            <h1 class="dashboard-title">
+                Dashboard
+            </h1>
+
+            <p class="dashboard-subtitle">
+                Visão geral do seu estoque e das movimentações recentes.
+            </p>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         CARDS
+    ====================================================== -->
+
+    <div class="dashboard-stats">
+
+
+        <!-- =================================================
+             PRODUTOS
+        ================================================== -->
+
+        <div class="stat-card stat-card-products">
+
+            <div class="stat-card-top">
+
+                <div class="stat-card-info">
+
+                    <span class="stat-title">
+                        Produtos
+                    </span>
+
+                    <span class="stat-description">
+                        Produtos cadastrados
+                    </span>
+
+                </div>
+
+
+                <div class="stat-icon stat-icon-products">
+
+                    <svg viewBox="0 0 24 24"
+                         fill="none"
+                         stroke="currentColor"
+                         stroke-width="1.8"
+                         stroke-linecap="round"
+                         stroke-linejoin="round">
+
+                        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/>
+
+                        <path d="m3.3 7 8.7 5 8.7-5"/>
+
+                        <path d="M12 22V12"/>
+
+                    </svg>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat-value"
+                 th:text="${totalProdutos}">
+
+                0
+
+            </div>
+
+
+            <div class="stat-footer">
+
+                <span class="stat-status status-blue">
+                    Total cadastrado
+                </span>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             CATEGORIAS
+        ================================================== -->
+
+        <div class="stat-card stat-card-categories">
+
+            <div class="stat-card-top">
+
+                <div class="stat-card-info">
+
+                    <span class="stat-title">
+                        Categorias
+                    </span>
+
+                    <span class="stat-description">
+                        Categorias cadastradas
+                    </span>
+
+                </div>
+
+
+                <div class="stat-icon stat-icon-categories">
+
+                    <svg viewBox="0 0 24 24"
+                         fill="none"
+                         stroke="currentColor"
+                         stroke-width="1.8"
+                         stroke-linecap="round"
+                         stroke-linejoin="round">
+
+                        <path d="M20.59 13.41 13.41 20.59a2 2 0 0 1-2.82 0L3.41 13.41a2 2 0 0 1 0-2.82L10.59 3.41A2 2 0 0 1 12 3h7a2 2 0 0 1 2 2v7a2 2 0 0 1-.41 1.41Z"/>
+
+                        <circle cx="16.5"
+                                cy="7.5"
+                                r="1"/>
+
+                    </svg>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat-value"
+                 th:text="${totalCategorias}">
+
+                0
+
+            </div>
+
+
+            <div class="stat-footer">
+
+                <span class="stat-status status-green">
+                    Total cadastrado
+                </span>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             USUÁRIOS
+        ================================================== -->
+
+        <div class="stat-card stat-card-users">
+
+            <div class="stat-card-top">
+
+                <div class="stat-card-info">
+
+                    <span class="stat-title">
+                        Usuários
+                    </span>
+
+                    <span class="stat-description">
+                        Usuários cadastrados
+                    </span>
+
+                </div>
+
+
+                <div class="stat-icon stat-icon-users">
+
+                    <svg viewBox="0 0 24 24"
+                         fill="none"
+                         stroke="currentColor"
+                         stroke-width="1.8"
+                         stroke-linecap="round"
+                         stroke-linejoin="round">
+
+                        <circle cx="9"
+                                cy="7"
+                                r="4"/>
+
+                        <path d="M3 21v-2a6 6 0 0 1 12 0v2"/>
+
+                        <path d="M16 3.5a4 4 0 0 1 0 7.5"/>
+
+                        <path d="M21 21v-2a6 6 0 0 0-4-5.65"/>
+
+                    </svg>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat-value"
+                 th:text="${totalUsuarios}">
+
+                0
+
+            </div>
+
+
+            <div class="stat-footer">
+
+                <span class="stat-status status-purple">
+                    Usuários ativos
+                </span>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             ESTOQUE BAIXO
+        ================================================== -->
+
+        <div class="stat-card stat-card-warning">
+
+            <div class="stat-card-top">
+
+                <div class="stat-card-info">
+
+                    <span class="stat-title">
+                        Estoque baixo
+                    </span>
+
+                    <span class="stat-description">
+                        Produtos abaixo do mínimo
+                    </span>
+
+                </div>
+
+
+                <div class="stat-icon stat-icon-warning">
+
+                    <svg viewBox="0 0 24 24"
+                         fill="none"
+                         stroke="currentColor"
+                         stroke-width="1.8"
+                         stroke-linecap="round"
+                         stroke-linejoin="round">
+
+                        <path d="M10.3 3.2 2.7 17a2 2 0 0 0 1.75 3h15.1a2 2 0 0 0 1.75-3L13.7 3.2a2 2 0 0 0-3.4 0Z"/>
+
+                        <path d="M12 9v4"/>
+
+                        <circle cx="12"
+                                cy="17"
+                                r=".5"
+                                fill="currentColor"/>
+
+                    </svg>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat-value"
+                 th:text="${estoqueBaixo}">
+
+                0
+
+            </div>
+
+
+            <div class="stat-footer">
+
+                <span class="stat-status status-red">
+                    Requer atenção
+                </span>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- =====================================================
+         GRÁFICOS
+    ====================================================== -->
+
+    <div class="dashboard-chart-grid">
+
+
+        <!-- =================================================
+             GRÁFICO DE MOVIMENTAÇÕES
+        ================================================== -->
+
+        <div class="dashboard-box chart-box">
+
+            <div class="box-header">
+
+                <div>
+
+                    <h2>
+                        Movimentações do estoque
+                    </h2>
+
+                    <span>
+                        Entradas e saídas dos últimos 6 meses
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="chart-content">
+
+                <div class="chart-container">
+
+                    <canvas id="movimentacoesChart"></canvas>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             PRODUTOS POR CATEGORIA
+        ================================================== -->
+
+        <div class="dashboard-box chart-box">
+
+            <div class="box-header">
+
+                <div>
+
+                    <h2>
+                        Produtos por categoria
+                    </h2>
+
+                    <span>
+                        Distribuição dos produtos cadastrados
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="chart-content estoque-chart-content">
+
+                <div class="estoque-doughnut-container">
+
+                    <canvas id="categoriaChart"></canvas>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- =====================================================
+         ÚLTIMAS MOVIMENTAÇÕES
+    ====================================================== -->
+
+    <div class="dashboard-box movements-box">
+
+
+        <div class="box-header">
+
+            <div>
+
+                <h2>
+                    Últimas Movimentações
+                </h2>
+
+                <span>
+                    Atividades recentes realizadas no estoque
+                </span>
+
+            </div>
+
+
+            <a th:href="@{/movimentacoes}"
+               class="view-all">
+
+                <span>Ver todas</span>
+
+                <svg xmlns="http://www.w3.org/2000/svg"
+                     viewBox="0 0 24 24"
+                     fill="none"
+                     stroke="currentColor"
+                     stroke-width="2"
+                     stroke-linecap="round"
+                     stroke-linejoin="round"
+                     aria-hidden="true">
+
+                    <path d="M5 12h14"/>
+                    <path d="m13 6 6 6-6 6"/>
+
+                </svg>
+
+            </a>
+
+        </div>
+
+
+
+        <div class="table-container">
+
+            <table class="modern-table">
+
+
+                <thead>
+
+                <tr>
+
+                    <th>
+                        Data
+                    </th>
+
+                    <th>
+                        Produto
+                    </th>
+
+                    <th>
+                        Usuário
+                    </th>
+
+                    <th>
+                        Tipo
+                    </th>
+
+                    <th>
+                        Quantidade
+                    </th>
+
+                </tr>
+
+                </thead>
+
+
+
+                <tbody>
+
+
+                <tr th:each="mov : ${ultimasMovimentacoes}">
+
+
+                    <!-- DATA -->
+
+                    <td>
+
+                        <span class="date-cell"
+                              th:text="${#temporals.format(
+                                  mov.dataMovimentacao,
+                                  'dd/MM/yyyy HH:mm'
+                              )}">
+
+                        </span>
+
+                    </td>
+
+
+
+                    <!-- PRODUTO -->
+
+                    <td class="product-cell"
+                        th:text="${mov.produto.nome}">
+
+                        Produto
+
+                    </td>
+
+
+
+                    <!-- USUÁRIO -->
+
+                    <td th:text="${mov.usuario.nome}">
+
+                        Usuário
+
+                    </td>
+
+
+
+                    <!-- TIPO -->
+
+                    <td>
+
+
+                        <!-- SAÍDA -->
+
+                        <span class="movement-badge movement-exit"
+                              th:if="${mov.tipoMovimentacao.name() == 'SAIDA'}">
+
+                            <svg viewBox="0 0 24 24"
+                                 fill="none"
+                                 stroke="currentColor"
+                                 stroke-width="2"
+                                 stroke-linecap="round"
+                                 stroke-linejoin="round">
+
+                                <path d="M12 5v14"/>
+
+                                <path d="m19 12-7 7-7-7"/>
+
+                            </svg>
+
+                            Saída
+
+                        </span>
+
+
+
+                        <!-- ENTRADA -->
+
+                        <span class="movement-badge movement-entry"
+                              th:if="${mov.tipoMovimentacao.name() == 'ENTRADA'}">
+
+                            <svg viewBox="0 0 24 24"
+                                 fill="none"
+                                 stroke="currentColor"
+                                 stroke-width="2"
+                                 stroke-linecap="round"
+                                 stroke-linejoin="round">
+
+                                <path d="M12 19V5"/>
+
+                                <path d="m5 12 7-7 7 7"/>
+
+                            </svg>
+
+                            Entrada
+
+                        </span>
+
+
+                    </td>
+
+
+
+                    <!-- QUANTIDADE -->
+
+                    <td class="quantity-cell"
+                        th:text="${mov.quantidade}">
+
+                        0
+
+                    </td>
+
+
+                </tr>
+
+
+
+                <!-- NENHUMA MOVIMENTAÇÃO -->
+
+                <tr th:if="${#lists.isEmpty(ultimasMovimentacoes)}">
+
+                    <td colspan="5"
+                        class="empty-table">
+
+                        Nenhuma movimentação cadastrada.
+
+                    </td>
+
+                </tr>
+
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- =====================================================
+         CHART.JS
+    ====================================================== -->
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+    <script th:inline="javascript">
+
+
+        /* =====================================================
+           DADOS DO GRÁFICO DE MOVIMENTAÇÕES
+        ====================================================== */
+
+        const meses =
+            /*[[${graficoMeses}]]*/ [];
+
+        const entradas =
+            /*[[${graficoEntradas}]]*/ [];
+
+        const saidas =
+            /*[[${graficoSaidas}]]*/ [];
+
+
+
+        /* =====================================================
+           GRÁFICO DE BARRAS
+        ====================================================== */
+
+        const canvasMovimentacoes =
+            document.getElementById('movimentacoesChart');
+
+
+        if (canvasMovimentacoes) {
+
+            new Chart(canvasMovimentacoes, {
+
+                type: 'bar',
+
+                data: {
+
+                    labels: meses,
+
+                    datasets: [
+
+                        {
+
+                            label: 'Entradas',
+
+                            data: entradas,
+
+                            backgroundColor: '#2ecc71',
+
+                            borderRadius: 6,
+
+                            borderSkipped: false,
+
+                            maxBarThickness: 34
+
+                        },
+
+                        {
+
+                            label: 'Saídas',
+
+                            data: saidas,
+
+                            backgroundColor: '#f2555c',
+
+                            borderRadius: 6,
+
+                            borderSkipped: false,
+
+                            maxBarThickness: 34
+
+                        }
+
+                    ]
+
+                },
+
+
+                options: {
+
+                    responsive: true,
+
+                    maintainAspectRatio: false,
+
+                    interaction: {
+
+                        mode: 'index',
+
+                        intersect: false
+
+                    },
+
+
+                    plugins: {
+
+                        legend: {
+
+                            position: 'bottom',
+
+                            labels: {
+
+                                usePointStyle: true,
+
+                                pointStyle: 'circle',
+
+                                padding: 20,
+
+                                color: '#c8c3ba',
+
+                                font: {
+
+                                    size: 12,
+
+                                    family: "'Poppins', Arial, sans-serif"
+
+                                }
+
+                            }
+
+                        },
+
+
+                        tooltip: {
+
+                            backgroundColor: '#211f1e',
+
+                            titleColor: '#f5f3ee',
+
+                            bodyColor: '#c8c3ba',
+
+                            borderColor: '#57534f',
+
+                            borderWidth: 1,
+
+                            padding: 12,
+
+                            titleFont: {
+
+                                size: 13
+
+                            },
+
+                            bodyFont: {
+
+                                size: 12
+
+                            },
+
+                            displayColors: true
+
+                        }
+
+                    },
+
+
+                    scales: {
+
+                        x: {
+
+                            grid: {
+
+                                display: false
+
+                            },
+
+                            ticks: {
+
+                                color: '#9b968f',
+
+                                font: {
+
+                                    size: 12
+
+                                }
+
+                            }
+
+                        },
+
+
+                        y: {
+
+                            beginAtZero: true,
+
+                            grid: {
+
+                                color: 'rgba(255, 255, 255, 0.06)'
+
+                            },
+
+                            ticks: {
+
+                                color: '#9b968f',
+
+                                precision: 0,
+
+                                font: {
+
+                                    size: 12
+
+                                }
+
+                            }
+
+                        }
+
+                    }
+
+                }
+
+            });
+
+        }
+
+
+
+        /* =====================================================
+           DADOS DO GRÁFICO DE PRODUTOS POR CATEGORIA
+        ====================================================== */
+
+        const categorias =
+            /*[[${graficoCategorias}]]*/ [];
+
+        const quantidadeCategorias =
+            /*[[${graficoCategoriasValores}]]*/ [];
+
+
+
+        /* =====================================================
+           CORES DAS CATEGORIAS
+        ====================================================== */
+
+        const coresCategorias = [
+
+            '#f59e0b',
+            '#2ecc71',
+            '#4f8cff',
+            '#a66cff',
+            '#f2555c',
+            '#22b8cf',
+            '#e879f9',
+            '#84cc16',
+            '#fb7185',
+            '#14b8a6'
+
+        ];
+
+
+
+        /* =====================================================
+           GRÁFICO DE ROSCA
+        ====================================================== */
+
+        const canvasCategoria =
+            document.getElementById('categoriaChart');
+
+
+        if (canvasCategoria) {
+
+            new Chart(canvasCategoria, {
+
+                type: 'doughnut',
+
+                data: {
+
+                    labels: categorias,
+
+                    datasets: [
+
+                        {
+
+                            data: quantidadeCategorias,
+
+                            backgroundColor: categorias.map(
+                                (_, index) =>
+                                    coresCategorias[
+                                    index % coresCategorias.length
+                                        ]
+                            ),
+
+                            borderColor: '#454240',
+
+                            borderWidth: 3,
+
+                            hoverOffset: 6
+
+                        }
+
+                    ]
+
+                },
+
+
+                options: {
+
+                    responsive: true,
+
+                    maintainAspectRatio: false,
+
+                    cutout: '68%',
+
+
+                    plugins: {
+
+                        legend: {
+
+                            position: 'bottom',
+
+                            labels: {
+
+                                usePointStyle: true,
+
+                                pointStyle: 'circle',
+
+                                padding: 18,
+
+                                color: '#c8c3ba',
+
+                                font: {
+
+                                    size: 12,
+
+                                    family: "'Poppins', Arial, sans-serif"
+
+                                }
+
+                            }
+
+                        },
+
+
+                        tooltip: {
+
+                            backgroundColor: '#211f1e',
+
+                            titleColor: '#f5f3ee',
+
+                            bodyColor: '#c8c3ba',
+
+                            borderColor: '#57534f',
+
+                            borderWidth: 1,
+
+                            padding: 12,
+
+                            callbacks: {
+
+                                label: function(context) {
+
+                                    return ' ' +
+                                        context.label +
+                                        ': ' +
+                                        context.raw +
+                                        ' produto(s)';
+
+                                }
+
+                            }
+
+                        }
+
+                    }
+
+                }
+
+            });
+
+        }
+
+
+    </script>
+
+
+</section>
+
+</body>
+
+</html>

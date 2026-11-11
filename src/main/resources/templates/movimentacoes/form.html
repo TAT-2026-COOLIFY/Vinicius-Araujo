@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR"
+      xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: layout(~{::section})}">
+
+<head>
+
+    <title>Nova Movimentação</title>
+
+</head>
+
+<body>
+
+<section>
+
+
+    <!-- CABEÇALHO -->
+
+    <div class="dashboard-header">
+
+        <div>
+
+            <h1 class="dashboard-title">
+                Nova Movimentação
+            </h1>
+
+            <p class="dashboard-subtitle">
+                Registre uma nova entrada ou saída do estoque.
+            </p>
+
+        </div>
+
+
+        <a th:href="@{/movimentacoes}"
+           class="page-button">
+
+            Voltar
+
+        </a>
+
+    </div>
+
+
+
+    <!-- FORMULÁRIO -->
+
+    <div class="dashboard-box form-box">
+
+
+        <div class="box-header">
+
+            <div>
+
+                <h2>
+                    Dados da Movimentação
+                </h2>
+
+                <span>
+                    Preencha as informações da movimentação
+                </span>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="box-content">
+
+
+            <!-- ERRO -->
+
+            <div th:if="${erro}"
+                 class="form-alert">
+
+                <span th:text="${erro}">
+                    Erro ao realizar movimentação.
+                </span>
+
+            </div>
+
+
+
+            <form th:action="@{/movimentacoes/salvar}"
+                  th:object="${movimentacao}"
+                  method="post">
+
+
+                <!-- PRODUTO -->
+
+                <div class="form-group">
+
+                    <label for="produto">
+                        Produto
+                    </label>
+
+                    <select id="produto"
+                            th:field="*{produto}"
+                            class="form-input"
+                            required>
+
+                        <option value="">
+                            Selecione um produto
+                        </option>
+
+                        <option
+                                th:each="produto : ${produtos}"
+                                th:value="${produto.id}"
+                                th:text="${produto.nome}">
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+
+                <!-- TIPO -->
+
+                <div class="form-group">
+
+                    <label for="tipoMovimentacao">
+                        Tipo de movimentação
+                    </label>
+
+                    <select id="tipoMovimentacao"
+                            th:field="*{tipoMovimentacao}"
+                            class="form-input"
+                            required>
+
+                        <option value="ENTRADA">
+                            + Entrada
+                        </option>
+
+                        <option value="SAIDA">
+                            - Saída
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+
+                <!-- QUANTIDADE -->
+
+                <div class="form-group">
+
+                    <label for="quantidade">
+                        Quantidade
+                    </label>
+
+                    <input
+                            id="quantidade"
+                            class="form-input"
+                            type="number"
+                            min="1"
+                            th:field="*{quantidade}"
+                            placeholder="Digite a quantidade"
+                            required>
+
+                </div>
+
+
+
+                <!-- BOTÕES -->
+
+                <div class="form-actions">
+
+
+                    <a th:href="@{/movimentacoes}"
+                       class="cancel-button">
+
+                        Cancelar
+
+                    </a>
+
+
+                    <button
+                            class="save-button"
+                            type="submit">
+
+                        Salvar Movimentação
+
+                    </button>
+
+
+                </div>
+
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+</section>
+
+</body>
+
+</html>

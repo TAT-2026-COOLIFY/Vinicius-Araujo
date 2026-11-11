@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR"
+      xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: layout(~{::section})}">
+
+<head>
+
+  <title>Alterar Senha</title>
+
+</head>
+
+<body>
+
+<section>
+
+
+  <!-- CABEÇALHO -->
+
+  <div class="dashboard-header">
+
+    <div>
+
+      <h1 class="dashboard-title">
+        Alterar Senha
+      </h1>
+
+      <p class="dashboard-subtitle">
+        Altere a senha do usuário selecionado.
+      </p>
+
+    </div>
+
+
+    <a th:href="@{/usuarios}"
+       class="page-button">
+
+      Voltar
+
+    </a>
+
+  </div>
+
+
+
+  <!-- FORMULÁRIO -->
+
+  <div class="dashboard-box">
+
+    <div class="box-header">
+
+      <div>
+
+        <h2>
+          Nova Senha
+        </h2>
+
+        <span>
+                    Defina uma nova senha para o usuário.
+                </span>
+
+      </div>
+
+    </div>
+
+
+    <div class="box-content">
+
+
+      <!-- MENSAGEM DE ERRO -->
+
+      <div th:if="${erro}"
+           class="form-error"
+           th:text="${erro}">
+
+      </div>
+
+
+      <form th:action="@{/usuarios/alterar-senha/{id}(id=${usuario.id})}"
+            method="post">
+
+
+        <!-- USUÁRIO -->
+
+        <div class="form-group">
+
+          <label>
+            Usuário
+          </label>
+
+          <input type="text"
+                 th:value="${usuario.nome}"
+                 disabled>
+
+        </div>
+
+
+
+        <!-- NOVA SENHA -->
+
+        <div class="form-group">
+
+          <label>
+            Nova senha
+          </label>
+
+          <input type="password"
+                 name="novaSenha"
+                 placeholder="Digite a nova senha"
+                 required>
+
+        </div>
+
+
+
+        <!-- CONFIRMAR SENHA -->
+
+        <div class="form-group">
+
+          <label>
+            Confirmar nova senha
+          </label>
+
+          <input type="password"
+                 name="confirmarSenha"
+                 placeholder="Confirme a nova senha"
+                 required>
+
+        </div>
+
+
+
+        <!-- BOTÕES -->
+
+        <div class="form-actions">
+
+          <a th:href="@{/usuarios}"
+             class="cancel-button">
+
+            Cancelar
+
+          </a>
+
+
+          <button type="submit"
+                  class="save-button">
+
+            Alterar Senha
+
+          </button>
+
+        </div>
+
+
+      </form>
+
+    </div>
+
+  </div>
+
+
+</section>
+
+</body>
+
+</html>

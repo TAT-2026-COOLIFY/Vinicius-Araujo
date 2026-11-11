@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1">
+
+    <title>Acesso Negado</title>
+
+    <link rel="stylesheet"
+          th:href="@{/style.css}">
+
+</head>
+
+
+<body class="access-denied-page">
+
+
+<div class="access-denied-container">
+
+
+    <div class="access-denied-card">
+
+
+        <!-- =====================================================
+             ÍCONE
+        ====================================================== -->
+
+        <div class="access-denied-icon">
+
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 viewBox="0 0 24 24"
+                 fill="none"
+                 stroke="currentColor"
+                 stroke-width="2"
+                 stroke-linecap="round"
+                 stroke-linejoin="round">
+
+                <circle cx="12"
+                        cy="12"
+                        r="9"/>
+
+                <path d="M12 8v4"/>
+
+                <path d="M12 16h.01"/>
+
+            </svg>
+
+        </div>
+
+
+
+        <!-- =====================================================
+             CÓDIGO
+        ====================================================== -->
+
+        <span class="access-denied-code">
+            403
+        </span>
+
+
+
+        <!-- =====================================================
+             TÍTULO
+        ====================================================== -->
+
+        <h1>
+            Acesso Negado
+        </h1>
+
+
+
+        <!-- =====================================================
+             MENSAGEM
+        ====================================================== -->
+
+        <p>
+            Você não possui permissão para acessar esta página.
+        </p>
+
+
+
+        <!-- =====================================================
+             BOTÃO
+        ====================================================== -->
+
+        <a th:href="@{/}"
+           class="access-denied-button">
+
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 viewBox="0 0 24 24"
+                 fill="none"
+                 stroke="currentColor"
+                 stroke-width="2"
+                 stroke-linecap="round"
+                 stroke-linejoin="round">
+
+                <path d="M15 18l-6-6 6-6"/>
+
+            </svg>
+
+            <span>
+                Voltar ao Dashboard
+            </span>
+
+        </a>
+
+
+    </div>
+
+
+</div>
+
+
+</body>
+
+</html>

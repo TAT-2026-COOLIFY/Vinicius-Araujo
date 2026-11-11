@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR"
+      xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: layout(~{::section})}">
+
+<head>
+
+    <title>Relatório de Movimentações</title>
+
+</head>
+
+<body>
+
+<section>
+
+
+    <!-- CABEÇALHO -->
+
+    <div class="dashboard-header">
+
+        <div>
+
+            <h1 class="dashboard-title">
+                Relatório de Entradas e Saídas
+            </h1>
+
+            <p class="dashboard-subtitle">
+                Consulte o histórico de movimentações do estoque.
+            </p>
+
+        </div>
+
+
+        <a th:href="@{/relatorios}"
+           class="page-button">
+
+            Voltar
+
+        </a>
+
+    </div>
+
+
+
+    <!-- FILTRO -->
+
+    <div class="dashboard-box">
+
+
+        <div class="box-header">
+
+            <div>
+
+                <h2>
+                    Período do Relatório
+                </h2>
+
+                <span>
+                    Selecione o período das movimentações que deseja consultar.
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="box-content">
+
+
+            <form th:action="@{/relatorios/movimentacoes}"
+                  method="get"
+                  class="report-filter">
+
+
+                <!-- DATA INICIAL -->
+
+                <div class="form-group">
+
+                    <label for="dataInicial">
+                        Data Inicial
+                    </label>
+
+                    <input type="date"
+                           id="dataInicial"
+                           name="dataInicial"
+                           th:value="${dataInicial}"
+                           class="form-input">
+
+                </div>
+
+
+
+                <!-- DATA FINAL -->
+
+                <div class="form-group">
+
+                    <label for="dataFinal">
+                        Data Final
+                    </label>
+
+                    <input type="date"
+                           id="dataFinal"
+                           name="dataFinal"
+                           th:value="${dataFinal}"
+                           class="form-input">
+
+                </div>
+
+
+
+                <!-- BOTÕES -->
+
+                <div class="filter-actions">
+
+
+                    <button type="submit"
+                            class="save-button">
+
+                        Filtrar
+
+                    </button>
+
+
+                    <a th:href="@{/relatorios/movimentacoes}"
+                       class="cancel-button">
+
+                        Limpar
+
+                    </a>
+
+
+                </div>
+
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- MOVIMENTAÇÕES -->
+
+    <div class="dashboard-box movements-box">
+
+
+        <div class="box-header">
+
+            <div>
+
+                <h2>
+                    Histórico de Movimentações
+                </h2>
+
+                <span>
+                    Registro das entradas e saídas realizadas no estoque.
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="table-container">
+
+            <table class="modern-table">
+
+
+                <thead>
+
+                <tr>
+
+                    <th>
+                        Data
+                    </th>
+
+                    <th>
+                        Produto
+                    </th>
+
+                    <th>
+                        Usuário
+                    </th>
+
+                    <th>
+                        Tipo
+                    </th>
+
+                    <th>
+                        Quantidade
+                    </th>
+
+                </tr>
+
+                </thead>
+
+
+
+                <tbody>
+
+
+                <tr th:each="mov : ${movimentacoes}">
+
+
+                    <!-- DATA -->
+
+                    <td th:text="${#temporals.format(
+                            mov.dataMovimentacao,
+                            'dd/MM/yyyy HH:mm'
+                        )}">
+
+                        07/08/2026 08:56
+
+                    </td>
+
+
+
+                    <!-- PRODUTO -->
+
+                    <td class="product-cell"
+                        th:text="${mov.produto.nome}">
+
+                        Coca-Cola 2L
+
+                    </td>
+
+
+
+                    <!-- USUÁRIO -->
+
+                    <td th:text="${mov.usuario.nome}">
+
+                        Pedro
+
+                    </td>
+
+
+
+                    <!-- TIPO -->
+
+                    <td>
+
+
+                        <!-- ENTRADA -->
+
+                        <span th:if="${mov.tipoMovimentacao.name() == 'ENTRADA'}"
+                              class="movement-badge movement-entry">
+
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                 width="16"
+                                 height="16"
+                                 viewBox="0 0 24 24"
+                                 fill="none"
+                                 stroke="currentColor"
+                                 stroke-width="2"
+                                 stroke-linecap="round"
+                                 stroke-linejoin="round">
+
+                                <path d="M12 19V5"/>
+                                <path d="m5 12 7-7 7 7"/>
+
+                            </svg>
+
+                            Entrada
+
+                        </span>
+
+
+
+                        <!-- SAÍDA -->
+
+                        <span th:if="${mov.tipoMovimentacao.name() == 'SAIDA'}"
+                              class="movement-badge movement-exit">
+
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                 width="16"
+                                 height="16"
+                                 viewBox="0 0 24 24"
+                                 fill="none"
+                                 stroke="currentColor"
+                                 stroke-width="2"
+                                 stroke-linecap="round"
+                                 stroke-linejoin="round">
+
+                                <path d="M12 5v14"/>
+                                <path d="m19 12-7 7-7-7"/>
+
+                            </svg>
+
+                            Saída
+
+                        </span>
+
+
+                    </td>
+
+
+
+                    <!-- QUANTIDADE -->
+
+                    <td th:text="${mov.quantidade}">
+
+                        1
+
+                    </td>
+
+
+                </tr>
+
+
+
+                <!-- NENHUMA MOVIMENTAÇÃO -->
+
+                <tr th:if="${#lists.isEmpty(movimentacoes)}">
+
+                    <td colspan="5"
+                        class="empty-table">
+
+                        Nenhuma movimentação encontrada para o período selecionado.
+
+                    </td>
+
+                </tr>
+
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+</section>
+
+</body>
+
+</html>

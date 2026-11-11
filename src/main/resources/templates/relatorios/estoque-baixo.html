@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR"
+      xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: layout(~{::section})}">
+
+<head>
+
+    <title>Estoque Baixo</title>
+
+</head>
+
+<body>
+
+<section>
+
+
+    <!-- CABEÇALHO -->
+
+    <div class="dashboard-header">
+
+        <div>
+
+            <h1 class="dashboard-title">
+                Produtos com Estoque Baixo
+            </h1>
+
+            <p class="dashboard-subtitle">
+                Consulte os produtos abaixo do estoque mínimo.
+            </p>
+
+        </div>
+
+
+        <a th:href="@{/relatorios}"
+           class="page-button">
+
+            Voltar
+
+        </a>
+
+    </div>
+
+
+
+    <!-- ESTOQUE BAIXO -->
+
+    <div class="dashboard-box movements-box">
+
+
+        <div class="box-header">
+
+            <div>
+
+                <h2>
+                    Estoque Abaixo do Mínimo
+                </h2>
+
+                <span>
+                    Produtos que precisam de reposição.
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="table-container">
+
+            <table class="modern-table">
+
+
+                <thead>
+
+                <tr>
+
+                    <th>
+                        ID
+                    </th>
+
+                    <th>
+                        Produto
+                    </th>
+
+                    <th>
+                        Categoria
+                    </th>
+
+                    <th>
+                        Quantidade Atual
+                    </th>
+
+                    <th>
+                        Estoque Mínimo
+                    </th>
+
+                    <th>
+                        Estoque Máximo
+                    </th>
+
+                    <th>
+                        Unidade
+                    </th>
+
+                </tr>
+
+                </thead>
+
+
+
+                <tbody>
+
+
+                <tr th:each="produto : ${produtos}">
+
+
+                    <!-- ID -->
+
+                    <td th:text="${produto.id}">
+                        1
+                    </td>
+
+
+                    <!-- PRODUTO -->
+
+                    <td class="product-cell"
+                        th:text="${produto.nome}">
+
+                        Produto
+
+                    </td>
+
+
+                    <!-- CATEGORIA -->
+
+                    <td th:text="${produto.categoria.nome}">
+                        Categoria
+                    </td>
+
+
+                    <!-- QUANTIDADE ATUAL -->
+
+                    <td>
+
+                        <span class="low-stock-badge"
+                              th:text="${produto.quantidadeAtual}">
+
+                            0
+
+                        </span>
+
+                    </td>
+
+
+                    <!-- ESTOQUE MÍNIMO -->
+
+                    <td th:text="${produto.estoqueMinimo}">
+                        0
+                    </td>
+
+
+                    <!-- ESTOQUE MÁXIMO -->
+
+                    <td th:text="${produto.estoqueMaximo}">
+                        0
+                    </td>
+
+
+                    <!-- UNIDADE -->
+
+                    <td th:text="${produto.tipoUnidade}">
+                        Unidade
+                    </td>
+
+
+                </tr>
+
+
+
+                <!-- NENHUM PRODUTO -->
+
+                <tr th:if="${#lists.isEmpty(produtos)}">
+
+                    <td colspan="7"
+                        class="empty-table">
+
+                        ✓ Nenhum produto está com estoque baixo.
+
+                    </td>
+
+                </tr>
+
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+</section>
+
+</body>
+
+</html>

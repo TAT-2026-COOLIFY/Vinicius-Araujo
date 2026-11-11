@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      th:replace="~{fragments/layout :: layout(~{::section})}">
+
+<head>
+
+  <title>Cadastro de Categoria</title>
+
+</head>
+
+<body>
+
+<section>
+
+  <!-- CABEÇALHO -->
+
+  <div class="dashboard-header">
+
+    <div>
+
+      <h1 class="dashboard-title">
+        Cadastro de Categoria
+      </h1>
+
+      <p class="dashboard-subtitle">
+        Cadastre uma nova categoria ou edite uma categoria existente.
+      </p>
+
+    </div>
+
+    <a th:href="@{/categorias}"
+       class="page-button">
+
+      Voltar
+
+    </a>
+
+  </div>
+
+
+  <!-- FORMULÁRIO -->
+
+  <div class="dashboard-box">
+
+    <div class="box-header">
+
+      <div>
+
+        <h2>
+          Dados da Categoria
+        </h2>
+
+        <span>
+          Preencha as informações da categoria
+        </span>
+
+      </div>
+
+    </div>
+
+
+    <div class="box-content">
+
+
+      <!-- ERRO -->
+
+      <div th:if="${erro}"
+           class="form-alert">
+
+        <span th:text="${erro}">
+          Erro ao salvar categoria.
+        </span>
+
+      </div>
+
+
+      <form th:action="@{/categorias/salvar}"
+            th:object="${categoria}"
+            method="post">
+
+
+        <!-- ID -->
+
+        <input type="hidden"
+               th:field="*{id}">
+
+
+        <!-- NOME -->
+
+        <div class="form-group">
+
+          <label for="nome">
+            Nome
+          </label>
+
+          <input type="text"
+                 id="nome"
+                 th:field="*{nome}"
+                 placeholder="Digite o nome da categoria"
+                 required>
+
+        </div>
+
+
+        <!-- BOTÕES -->
+
+        <div class="form-actions">
+
+          <a th:href="@{/categorias}"
+             class="cancel-button">
+
+            Cancelar
+
+          </a>
+
+
+          <button type="submit"
+                  class="page-button">
+
+            Salvar Categoria
+
+          </button>
+
+        </div>
+
+
+      </form>
+
+    </div>
+
+  </div>
+
+</section>
+
+</body>
+
+</html>
